@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import NavbarSnippets from "./NavbarSnippets";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -70,7 +70,7 @@ function AddSnippet() {
               <div className="snippetPreview">
                 <CopyToClipboard
                   text={snip.body}
-                  onCopy={(text) => handleCopied()}
+                  onCopy={() => handleCopied()}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
