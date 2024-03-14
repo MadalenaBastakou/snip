@@ -22,7 +22,7 @@ const createSnip = async (req, res) => {
 const getSnips = async (req, res) => {
   try {
     const snips = await Snip.find({ user: req.user._id });
-    res.json({ snips });
+    return res.json({snips});
   } catch (err) {
     console.log(err);
     res.sendStatus(401);

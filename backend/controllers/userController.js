@@ -57,30 +57,24 @@ const login = async (req, res) => {
       return res.status(400).send({ msg: "Wrong password" });
     }
     //create jwt
-    const exp = Date.now() + 1000 * 60 * 60 * 24 * 30;
-    const token = jwt.sign({ sub: user._id, exp }, process.env.SECRET);
-    //save it in a cookie
-    res.cookie("Authorization", token, {
-      expires: new Date(exp),
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-    });
-    //send it
-    res.json({ token });
+    const token = jwt.sign({ username: user.username }, process.env.SECRET);
+    res.cookie("token", token);
+    return res.status(200).json({ login: true });
   } catch (err) {
     console.log(err);
   }
 };
 
 const checkAuth = async (req, res) => {
-  res.sendStatus(200);
+  try {
+    return res.json({ login: true });
+  } catch (err) {
+    return res.json({ login: false });
+  }
 };
 
 const logout = async (req, res) => {
-  res.clearCookie("Authorization", {
-    path: '/'
-  });
+  res.clearCookie("token");
   return res.json({ logout: true });
 };
 

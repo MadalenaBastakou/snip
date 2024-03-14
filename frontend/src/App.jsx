@@ -7,6 +7,7 @@ import AddSnippet from "./components/AddSnippet";
 import Dashboard from "./components/Dashboard";
 import MySnippets from "./components/MySnippets";
 import RequireAuth from "./components/RequireAuth";
+import Error404 from "./components/Error404";
 
 function App() {
 
@@ -25,6 +26,12 @@ function App() {
         />
         <Route path="/newsnippet" element={<RequireAuth><AddSnippet /></RequireAuth>} />
         <Route path="/mysnippets" element={<RequireAuth><MySnippets /></RequireAuth>} />
+        <Route
+          path="*"
+          element={
+              <Error404 />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

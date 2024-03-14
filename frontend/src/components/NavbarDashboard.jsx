@@ -1,4 +1,3 @@
-import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
@@ -6,25 +5,22 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { InputGroup } from "react-bootstrap";
-import { useCookies } from "react-cookie";
+import Cookies from 'js-cookie';
 
 function NavbarDashboard({
   username,
   search,
   captureSearch,
   handleSearch,
-  searchResults,
+  // searchResults,
 }) {
-  const [cookie, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
       const response = await axios.get("http://localhost:3020/logout");
       if (response.data.logout) {
-        removeCookie("Authorization", { path: "/" });
-        removeCookie("auth_token", { path: "/" });
-        removeCookie("user", { path: "/" });
+        Cookies.remove("token");
         navigate("/login");
       }
     } catch (error) {
@@ -56,6 +52,7 @@ function NavbarDashboard({
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
           <Form className="d-flex align-items-center">
+            <span>Hello, <b>{username}</b></span>
             <Button
               className="logout-btn"
               onClick={logout}
